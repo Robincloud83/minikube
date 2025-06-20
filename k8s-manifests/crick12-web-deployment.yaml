@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crick12-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crick12-web
+  template:
+    metadata:
+      labels:
+        app: crick12-web
+    spec:
+      containers:
+        - name: crick12-web
+          image: crick12-web:v1
+          ports:
+            - containerPort: 3000
+

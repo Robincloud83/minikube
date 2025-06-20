@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crick12-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crick12-app
+  template:
+    metadata:
+      labels:
+        app: crick12-app
+    spec:
+      containers:
+        - name: crick12-app
+          image: crick12-app:v1
+          ports:
+            - containerPort: 5122
+          envFrom:
+            - configMapRef:
+                name: crick12-app-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: crick12-app-config
+data:
+  ENV: development
+  PORT: "5122"
+  JWT_SECRET: Crick12
+  ACCESS_TOKEN_EXPIRY: "99999m"
+  REFRESH_TOKEN_EXPIRY: "99999m"
+  PROJECT_NAME: "Crick12"
+  FANTASY_SPORT_API: https://rest.entitysport.com/v2/
+  FANTASY_SPORT_API_KEY: 68ba056c91af69f43d0069f0e2644d44
+  DEV_DATABASE_URI: mongodb+srv://robinaws460:Robin@@@1@cluster0.hotgad5.mongodb.net/crick12
+  STAGGING_DATABASE_URI: mongodb+srv://robinaws460:Robin@@@1@cluster0.hotgad5.mongodb.net/crick12
+  PROD_DATABASE_URI: mongodb+srv://robinaws460:Robin@@@1@cluster0.hotgad5.mongodb.net/crick12
+

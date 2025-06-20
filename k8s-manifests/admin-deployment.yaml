@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crick12-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crick12-admin
+  template:
+    metadata:
+      labels:
+        app: crick12-admin
+    spec:
+      containers:
+        - name: admin
+          image: crick12-admin:v1
+          ports:
+            - containerPort: 6009
+          envFrom:
+            - configMapRef:
+                name: crick12-admin-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: crick12-admin-config
+data:
+  ENV: development
+  PORT: "6009"
+  JWT_SECRET: crick12
+  JWT_AD_SECRET: admin-logging
+  JWT_TIMEOUT_DURATION: 200m
+  FANTASY_SPORT_API: https://rest.entitysport.com/v2
+  FANTASY_SPORT_API_KEY: 68ba056c91af69f43d0069f0e2644d44
+  LOCAL_DATABASE_URI: mongodb+srv://robinaws460:Robin@@@1@cluster0.hotgad5.mongodb.net/crick12
+
