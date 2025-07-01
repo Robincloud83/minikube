@@ -1,6 +1,7 @@
 # minikube 
 
 #minikube installation
+
 sudo apt update
 
 sudo apt install curl apt-transport-https
@@ -26,21 +27,29 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 
 
 minikube start
+
 minikube status
+
 minikube addons list
 
 
 ##=============================
 ## Point Docker to Minikube's internal daemon:
+
 eval $(minikube docker-env)
+
 ## Build the Docker Images
+
 cd ~/docker/Crick12_Admin
+
 docker build -t crick12-admin:v1 .
 
 cd ~/docker/Crick12_App
+
 docker build -t crick12-app:v1 .
 
 cd ~/docker/crick12_web
+
 docker build -t crick12-web:v1 .
 
 
@@ -56,18 +65,25 @@ docker build -t crick12-web:v1 .
 ### └── ingress.yaml  # Optional
 
 ##Then apply your Kubernetes manifests:
+
 kubectl apply -f ~/k8s-manifests/
 
 ##Check Pods
+
 kubectl get pods
 
 ## Access Your Applications
+
 ## Use minikube service to get URLs:
+
 minikube service crick12-admin-service
+
 minikube service crick12-app-service
+
 minikube service crick12-web-service
 
 ## Check your services:
+
 kubectl get svc
 
 
